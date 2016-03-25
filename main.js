@@ -10,32 +10,32 @@ function toDoApp () {
       .append(  $('<button>').attr({class: 'check'})  )
       .append(  $('<p>').text(textInput)  )
       .append(  $('<input>').attr({type: 'text', class: 'edit-todo', value: textInput})  )
-      .append(  $('<button>').attr({class: 'delete'}) );
-
+      .append(  $('<button>').attr({class: 'delete'}).text ('X') );
     $('.items')
       .append( $('<li>').append(newArticle));
-
-
   });
 
   $('.items').on('click', 'p', function editListItem(event){
-    // event.preventDefault();
     $(this).parent('article').addClass('editing');
 
   });
 
 
   $('.items').on('keyup', '.edit-todo', function enterNewListIten (event){
-    // event.preventDefault();  // this STOPS "h" key from printing the letter "h"!!
     if(event.keyCode === 13){
-      // other stuff
-      $(this).parent('article').removeClass('editing');
+      // '.edit-todo'.val()); /// i want to put something here that grabs new input, stores it, and spits it out when enter is pressed.
+      $(this).closest('article').removeClass('editing');
+
     }
   });
-
-
-
-
+// this is applying to all li instead of the targeted on click
+  $('.items').on('click', '.check', function completeItemClick(event){
+    $(this).closest('article').toggleClass('completed');
+  });
+// this is applying to all li instead of the targeted on click
+  $('.items').on('click', '.delete', function deleteItem (event){
+    $(this).closest('li').remove(); // change this to closest li
+  });
 
 }
 
