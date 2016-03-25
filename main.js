@@ -8,22 +8,30 @@ function toDoApp () {
     var textInput = ($('.new-todo').val());
     var newArticle = $('<article>')
       .append(  $('<button>').attr({class: 'check'})  )
-      .append(  $('<button>').attr({class: 'delete'}) )
-      .append(  $('<p>').text(textInput).addClass("toDoText")  )
-      .append(  $('<input>').attr({type: 'text', class: 'edit-todo', value: textInput})  );
+      .append(  $('<p>').text(textInput)  )
+      .append(  $('<input>').attr({type: 'text', class: 'edit-todo', value: textInput})  )
+      .append(  $('<button>').attr({class: 'delete'}) );
 
-    $('.items').append( $('<li>') ).append(newArticle);
-
-
-  });
-
-  $('.items').on('click', ".toDoText", function editListItem(event){
-    event.target
-//this is where I want to DECLARE a variable// 
+    $('.items')
+      .append( $('<li>').append(newArticle));
 
 
   });
 
+  $('.items').on('click', 'p', function editListItem(event){
+    // event.preventDefault();
+    $(this).parent('article').addClass('editing');
+
+  });
+
+
+  $('.items').on('keyup', '.edit-todo', function enterNewListIten (event){
+    // event.preventDefault();  // this STOPS "h" key from printing the letter "h"!!
+    if(event.keyCode === 13){
+      // other stuff
+      $(this).parent('article').removeClass('editing');
+    }
+  });
 
 
 
