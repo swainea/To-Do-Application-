@@ -1,8 +1,7 @@
 function toDoApp () {
 
-//creates a new item when user hits enter
-
   var itemList = [];
+  var itemsLeft = 0;
 
   $('form').submit(function newToDo(event){
     event.preventDefault();
@@ -15,6 +14,8 @@ function toDoApp () {
       .append(  $('<button>').attr({class: 'delete'}).text ('X') );
     $('.items')
       .append( $('<li>').append(newArticle));
+      // itemsLeft.text(Number(itemsLeft.text()) + 1); //math not working properly
+    $('.incomplete-items').text(itemsLeft);
   });
 
   $('.items').on('click', 'p', function editListItem(event){
@@ -27,12 +28,16 @@ function toDoApp () {
       $(this).closest('article').removeClass('editing');
     }
   });
+
   $('.items').on('click', '.check', function completeItemClick(event){
-    $(this).closest('article').toggleClass('completed');
+    if ($(this).closest('article').toggleClass('completed')){
+      itemsLeft.text(Number(itemsLeft.text()) + 1); //math not working properly
+    }
   });
 
   $('.items').on('click', '.delete', function deleteItem (event){
     $(this).closest('li').remove();
+      itemsLeft.text(Number(itemsLeft.text()) - 1); //math not working properly
   });
 
   $('.show-all').on('click', function showAll (event){
@@ -41,24 +46,21 @@ function toDoApp () {
     $('.show-active').removeClass('.active');
     $('.show-completed').removeClass('.active');
   });
-//above is working
+
   $('.show-active').on('click', function showActive (event){
     $('article').not('.completed').closest('li').css('display', 'block');
     $('.completed').closest('li').css('display', 'none');
     $('.show-all').removeClass('.show-all');
     $('.show-active').addClass('.active');
   });
-      // completed will be display then anthing that is not completed (still active, display)
-      // eliminate the show all and show the show active
-//above is working
+
   $('.show-completed').on ('click', function showCompleted (event){
-    $('article').not('.active').closest('li').css('display', 'block');
-    // $('.active').closest('li').css('display', 'none'); <--- deletes the button- BAD! 
-    $('.show-all').removeClass('.show-all');
+    $('article').not('.completed').closest('li').css('display', 'none');
+    $('.completed').closest('li').css('display', 'block');
+    $('.show-all').removeClass('.active');
     $('.show-active').removeClass('.active');
   });
-  //ABOVE IS NOT WORKING
-  // });
+
 
 //WHATS LEFT!!!
   //Need to add in item count //need to add in array // need to work on the display
