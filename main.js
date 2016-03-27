@@ -8,12 +8,12 @@ function toDoApp () {
     $('.incomplete-items').text(itemsLeft);
     event.preventDefault();
 
-    var textInput = [($('.new-todo').val())]; // I think here I want to push this to an array to store each new item
-    itemList.push(textInput); // pushing new entry onto the array?
-    console.log(itemList); //
+    var textInput = ($('.new-todo').val());
+    itemList.push(textInput);
+  
     var newArticle = $('<article>')
       .append(  $('<button>').attr({class: 'check'})  )
-      .append(  $('<p>').text(textInput)  ) //this is where I want to grab the data from my array instead of textInput??
+      .append(  $('<p>').text(textInput)  )
       .append(  $('<input>').attr({type: 'text', class: 'edit-todo', value: textInput})  )
       .append(  $('<button>').attr({class: 'delete'}).text ('X') );
     $('.items')
