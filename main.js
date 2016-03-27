@@ -10,7 +10,7 @@ function toDoApp () {
 
     var textInput = ($('.new-todo').val());
     itemList.push(textInput);
-  
+
     var newArticle = $('<article>')
       .append(  $('<button>').attr({class: 'check'})  )
       .append(  $('<p>').text(textInput)  )
@@ -48,7 +48,26 @@ function toDoApp () {
   });
 
   $('.items').on('click', '.delete', function deleteItem (event){
-    $(this).closest('li').remove();
+    $(this).closest('li').remove(); // line works to delete a list item but we want to delete it from the array
+
+    // var deletedLi = itemList.indexOf($(this).closest('li').remove());
+    // console.log(deletedLi);
+    // console.log(itemList);
+    // itemList.splice(deletedLi, 1);
+    // console.log(itemList);
+
+/*  // I want to return the index of the targeted Li
+I want to use the splice method to go to the array and delete the item at index
+which I founs using indexOf();
+
+What happens is that the last element in my array is deleted
+I think its acting funny because I am grabbing an Li instead of the item in the array?
+*/
+
+
+    itemsLeft--;
+    $('.incomplete-items').text(itemsLeft);
+
   });
 
   $('.show-all').on('click', function showAll (event){
