@@ -4,18 +4,20 @@ function toDoApp () {
   var itemsLeft = 0;
 
   $('form').submit(function newToDo(event){
+    itemsLeft++;
+    $('.incomplete-items').text(itemsLeft);
     event.preventDefault();
 
-    var textInput = ($('.new-todo').val());
+    var textInput = [($('.new-todo').val())]; // I think here I want to push this to an array to store each new item
+    itemList.push(textInput); // pushing new entry onto the array?
+    console.log(itemList); //  
     var newArticle = $('<article>')
       .append(  $('<button>').attr({class: 'check'})  )
-      .append(  $('<p>').text(textInput)  )
+      .append(  $('<p>').text(textInput)  ) //this is where I want to grab the data from my array instead of textInput??
       .append(  $('<input>').attr({type: 'text', class: 'edit-todo', value: textInput})  )
       .append(  $('<button>').attr({class: 'delete'}).text ('X') );
     $('.items')
       .append( $('<li>').append(newArticle));
-      // itemsLeft.text(Number(itemsLeft.text()) + 1); //math not working properly
-    $('.incomplete-items').text(itemsLeft);
   });
 
   $('.items').on('click', 'p', function editListItem(event){
@@ -30,14 +32,22 @@ function toDoApp () {
   });
 
   $('.items').on('click', '.check', function completeItemClick(event){
-    if ($(this).closest('article').toggleClass('completed')){
-      itemsLeft.text(Number(itemsLeft.text()) + 1); //math not working properly
+    if($(this).closest('article').hasClass('completed')){
+      itemsLeft++;
+      $('.incomplete-items').text(itemsLeft);
+    } else {
+      itemsLeft--;
+      $('.incomplete-items').text(itemsLeft);
     }
+    $(this).closest('article').toggleClass('completed')
+  });
+
+  $('.clear').on('click', function clearComplete (event){
+    $(this).closest('main').find('.completed').closest('li').remove();
   });
 
   $('.items').on('click', '.delete', function deleteItem (event){
     $(this).closest('li').remove();
-      itemsLeft.text(Number(itemsLeft.text()) - 1); //math not working properly
   });
 
   $('.show-all').on('click', function showAll (event){
@@ -63,8 +73,8 @@ function toDoApp () {
 
 
 //WHATS LEFT!!!
-  //Need to add in item count //need to add in array // need to work on the display
-    //remember to incremnt and decrement the items for the left button when you are
+  // array
+  // reset display with empty string
 
 }
 
